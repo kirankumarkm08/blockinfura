@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useAppKitAccount } from "./../appkit.tsx";
 import { useAppKit } from "@reown/appkit/react";
-import Features from "@/components/Features.tsx";
-import HeroAnimationData from "./animation/Animation.tsx";
-import Anime from "../animationsjson/Security.json";
+// import Features from "@/components/Features.tsx";
+// import HeroAnimationData from "./animation/Animation.tsx";
+// import Anime from "../animationsjson/Security.json";
 
 // Button component for better reusability
 interface ActionButtonProps {

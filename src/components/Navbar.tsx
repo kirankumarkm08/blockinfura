@@ -28,9 +28,15 @@ const NavDropdown: React.FC<NavDropdownProps> = ({ title, children }) => (
   </div>
 );
 
+// Define the Network type
+interface Network {
+  name: string;
+  logo_url: string;
+}
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [avlNetworks, setAvlNetworks] = useState([]);
+  const [avlNetworks, setAvlNetworks] = useState<Network[]>([]);
   const { isConnected, status } = useAppKitAccount();
   const account = useAppKitAccount();
   const navigate = useNavigate();
@@ -132,13 +138,13 @@ const Navbar = () => {
               {avlNetworks.map((network, index) => (
                 <Link
                   key={index}
-                  to={`/networks/${network?.name?.toLowerCase()}`}
+                  to={`/networks/${network.name.toLowerCase()}`}
                   className="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-[#E99710] border-l-2 border-transparent hover:border-[#E99710] transition-all duration-200"
                 >
                   <div className="flex items-center">
                     <img
-                      src={network?.logo_url}
-                      alt={`${network?.name} logo`}
+                      src={network.logo_url}
+                      alt={`${network.name} logo`}
                       className="w-4 h-4 mr-2"
                     />
                     {network.name}
