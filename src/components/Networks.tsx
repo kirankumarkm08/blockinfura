@@ -50,7 +50,7 @@ const Networks: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex justify-center justify-center gap-8  ">
+        <div className="flex justify-center  gap-8  ">
           {networksList.map((network) => (
             <NetworkCard
               key={network.id}
