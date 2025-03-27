@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-website-prod-svc
+  labels:
+    app: frontend-website-prod-svc
+spec:
+  ports:
+    - port: 80
+      targetPort: 5173
+      protocol: TCP
+      name: http
+  selector:
+    app: frontend-website-prod
+  type: ClusterIP

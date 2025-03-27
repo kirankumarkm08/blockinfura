@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.login-buttons {
+  background: #e99710;
+  padding: 8px 18px;
+  border-radius: 100px;
+  color: white;
+  font-weight: bold;
+  margin: unset;
+}
+body {
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/PlaywriteHU-VariableFont_wght.ttf");
+}
+@font-face {
+  font-family: Boldonse;
+  src: url("/fonts/Boldonse-Regular.ttf");
+}
+
+@font-face {
+  font-family: Playwrite;
+  src: url("/fonts/PlaywriteHU-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url("/fonts/Roboto-VariableFont_wdth,wght.ttf");
+}
+
+/* Add these to your index.css file */
+
+/* Apply smooth scrolling to the entire HTML document */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Apply smooth scrolling to the body */
+body {
+  scroll-behavior: smooth;
+  overflow-y: scroll; /* Ensure consistent scrollbar presence */
+}
+
+/* Apply to all scrolling containers */
+.scroll-container {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+}
+
+/* Smooth scrolling for elements that can scroll */
+div,
+section,
+main,
+article,
+aside,
+nav {
+  scroll-margin-top: 5rem; /* Add space for fixed header when scrolling to anchors */
+}
+
+/* Add scroll padding for anchor links when using fixed header */
+:root {
+  scroll-padding-top: 5rem; /* Adjust this value to match your navbar height */
+}
+
+/* For smoother animations and transitions */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* For links that jump to anchors */
+a[href^="#"] {
+  scroll-behavior: smooth;
+}

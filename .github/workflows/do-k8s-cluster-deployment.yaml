@@ -1,0 +1,63 @@
+# Deploy to do-k8s-cluster
+
+name: Build and Deploy to DO K8s Cluster in production namespace
+
+on:
+  push:
+    branches:
+      - 'staging'
+
+# Environment variables available to all jobs and steps in this workflow
+env:
+  DIGITALOCEAN_ACCESS_TOKEN: ${{secrets.DIGITALOCEAN_ACCESS_TOKEN}}
+  IMAGE: frontend-website-prod
+
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-20.04
+    environment: Production
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+
+      - name: Save DigitalOcean kubeconfig
+        run: doctl kubernetes cluster kubeconfig save 938d186d-0753-4c32-bca3-f3ebbdf0e12c
+
+
+      - name: DOCR Login
+        run: docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
+
+
+      # Build the Docker image
+      - name: Build
+        run: docker build --tag registry.digitalocean.com/frontend-website/frontend-website-prod:$IMAGE-$GITHUB_SHA .
+
+
+      # Push the Docker image to Google Container Registry
+      - name: Publish
+        run: |
+          docker push registry.digitalocean.com/frontend-website/frontend-website-prod:$IMAGE-$GITHUB_SHA
+
+
+      # Install helm
+      - name: Install Helm
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+
+
+     # Run test command
+
+      - name: kubernetes command
+        run: kubectl get ns
+
+      - name: Deploy
+        run: |
+          helm upgrade -n frontend-website frontend-website-prod --install --set-string image.tag=$IMAGE-$GITHUB_SHA ./helm-charts/helm-chart-web-production

@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-website-prod-ingress-path
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: '*'
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+spec:
+  tls:
+  - hosts:
+      - demo.blockinfura.com
+    secretName: blockinfura-wildcard-ssl-crt
+  rules:
+  - host: demo.blockinfura.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-website-prod-svc
+            port:
+              number: 80
+  ingressClassName: nginx

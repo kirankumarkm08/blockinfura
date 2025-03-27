@@ -1,0 +1,1 @@
+export const BLOCK_INFURA_LOGO = "https://i.imgur.com/PWyKNDm.png";
