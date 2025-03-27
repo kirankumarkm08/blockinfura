@@ -56,6 +56,7 @@ export default defineConfig({
     },
     allowedHosts: [
       '.blockinfura.com',
+      '.up.railway.app',
     ],
   },
 });
